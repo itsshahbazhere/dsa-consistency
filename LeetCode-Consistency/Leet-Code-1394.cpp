@@ -1,5 +1,8 @@
 // https://leetcode.com/problems/find-lucky-integer-in-an-array/
 
+// TIME COMPLEXITY - O(N)
+//SPACE COMPLEXITY - O(1)
+
 class Solution {
 public:
     int findLucky(vector<int>& arr) {
