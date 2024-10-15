@@ -1,5 +1,8 @@
 // https://leetcode.com/problems/find-peak-element/
 
+// TIME COMPLEXITY - O(logn)
+// SPACE COMPLEXITY - O(1)
+
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
