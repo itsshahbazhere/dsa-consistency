@@ -1,7 +1,8 @@
 // https://leetcode.com/problems/trapping-rain-water/
 
 
-// Approach 3 optmised then other beats 100%
+// Approach 3 
+//Optimised than other approaches beats 100%
 // TIME COMPLEXITY = O(N)
 // SPACE COMPLEXITY = O(1)
 
