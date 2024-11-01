@@ -4,6 +4,32 @@
 #include <bits/stdc++.h>
 
 vector<vector<int>> pairSum(vector<int> &arr, int s){
+   
+   vector<vector<int>>ans;
+   for(int i=0; i<arr.size(); i++){
+      vector<int>pair(2);
+      for(int j=i+1; j<arr.size(); j++){
+         if(arr[i]+arr[j] == s){
+            pair[0] = min(arr[i],arr[j]);
+            pair[1] = max(arr[i], arr[j]);
+            ans.push_back(pair);
+            
+         }
+      }
+      
+   }
+   sort(ans.begin(), ans.end());
+   return ans;
+
+}
+
+
+
+
+
+#include <bits/stdc++.h>
+
+vector<vector<int>> pairSum(vector<int> &arr, int s){
   
   vector<vector<int>> ans;
    for(int i=0;i<arr.size();i++){
@@ -22,3 +48,6 @@ vector<vector<int>> pairSum(vector<int> &arr, int s){
    sort(ans.begin(), ans.end());
    return ans;
 }
+
+
+
