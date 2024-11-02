@@ -3,7 +3,6 @@
 // Time Complexity: O(N)
 // Space Complexity: O(N)
 
-
 class Solution {
 public:
     string makeFancyString(string s) {
