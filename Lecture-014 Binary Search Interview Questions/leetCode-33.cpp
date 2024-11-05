@@ -61,3 +61,68 @@ public:
     }
 
 };
+
+
+
+
+
+
+//also written as---
+class Solution {
+private:
+    int pivotIdx(vector<int>& nums, int target){
+
+        int start = 0;
+        int end = nums.size()-1;
+        int mid =  start+ (end-start)/2;
+
+        while(start<end){
+            if(nums[start] < nums[end]){
+                return start;
+            }
+            else if(nums[0] <= nums[mid]){
+                start = mid+1;
+            }
+            else{
+                end = mid;
+            }
+            mid =  start+ (end-start)/2;
+        }
+
+        return start;
+    }
+
+    int binarySearch(int start, int end, int target, vector<int>&nums){
+
+        int mid = start+(end-start)/2;
+        while(start<=end){
+            if(nums[mid] == target){
+                return mid;
+            }
+            else if(nums[mid]>target){
+                end = mid-1;
+            }
+            else{
+                start = mid+1;
+            }
+            mid = start+(end-start)/2;
+        }
+
+        return -1;
+
+    }
+   
+public:
+    int search(vector<int>& nums, int target) {
+        int pivotIndex = pivotIdx(nums,target);
+        int search1 = binarySearch(0, pivotIndex-1, target, nums);
+        int search2 = binarySearch(pivotIndex, nums.size()-1, target ,nums);
+        
+        if(search1 != -1){
+            return search1;
+        }
+
+        return search2;
+
+    }
+};

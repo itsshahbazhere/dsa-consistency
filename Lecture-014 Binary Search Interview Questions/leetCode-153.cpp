@@ -15,7 +15,7 @@ public:
             if(nums[start]<nums[end]){ 
                 break;
             }
-            else if(nums[mid]>=nums[0]){
+            else if(nums[mid]>=nums[0]){ //test case [2,1]
                 start=mid+1;
             }
             else{
