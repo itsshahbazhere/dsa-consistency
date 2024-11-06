@@ -3,34 +3,32 @@
 
 class Solution {
 public:
-    
     int mySqrt(int x) {
-        return binarySearch(x);
-    }
-
-    long long int binarySearch(int n){
-
-        int start=0;
-        int end=n;
-        long long int mid=start + (end-start)/2;
-        long long int ans=-1;
-
+        
+        int start = 0;
+        int end = x;
+        long long int mid = start+ (end-start)/2;
+        int ans = -1;
+       
         while(start<=end){
 
-            long long int sq=mid*mid;
-            if(sq==n){
+            long long int prod = mid*mid;
+
+            if(prod == x){
                 return mid;
+
             }
-            else if(sq<n){
-                ans=mid;
-                start=mid+1;
+            else if(prod > x){
+                end = mid-1;
             }
             else{
-                end=mid-1;
+                start = mid+1;
+                ans=mid;
             }
+            mid = start+ (end-start)/2;
 
-            mid=start + (end-start)/2;
         }
+
 
         return ans;
     }
