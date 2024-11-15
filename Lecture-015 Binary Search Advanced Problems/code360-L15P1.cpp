@@ -1,58 +1,88 @@
 // Question Links:
-// - Book Allocation Problem: https://bit.ly/3GiCqY0 
+// - Book Allocation Problem: https://www.naukri.com/code360/problems/allocate-books_1090540
 
+//brute force logic --binary search
+//TIME COMPLEXITY = O(log(high-low+1)*N)
+//SPACE COMPLEXITY = O(1)
 
-#include<vector>
-using namespace std;
+int countStu(vector<int>& arr, int pages){
 
-bool isPossible(vector<int> arr, int n, int m, int mid) {
-    int studentCount = 1;
-    int pageSum = 0;
-    //cout << "checking for mid "<< mid <<endl;
-    
-    for(int i = 0; i<n; i++) {
-        if(pageSum + arr[i] <= mid) {
-            pageSum += arr[i];
+    int stu=1;
+    int pagesStudent = 0;
+    for(int i=0; i<arr.size(); i++){
+        if(pagesStudent+arr[i] <= pages){
+            pagesStudent+=arr[i];
         }
-        else
-        {
-            studentCount++;
-            if(studentCount > m || arr[i] > mid ) {
-            return false;
+        else{
+            stu++;
+            pagesStudent=arr[i];
         }
-            pageSum = arr[i];
-        }
-        if(studentCount > m) {
-            return false;
-        }
-        //cout << " for i " << i << " Student "<< studentCount << " pageSum " << pageSum << endl;
     }
-    return true;
+    return stu;
 }
 
-int allocateBooks(vector<int> arr, int n, int m) {
-    int s = 0;
-    int sum = 0;
+
+int findPages(vector<int>& arr, int n, int m) {
+
+    if(n<m) return -1;
     
-    for(int i = 0; i<n; i++) {
-        sum += arr[i];
-    }
-    int e = sum;
+    int low = *max_element(arr.begin(),arr.end());
+    int high = accumulate(arr.begin(),arr.end(),0);
     int ans = -1;
-    int mid = s + (e-s)/2;
-    
-    while(s<=e)
-    {
-        if(isPossible(arr,n,m,mid)) {
-            //cout<<" Mid returned TRUE" << endl;
+    while(low<=high){
+        int mid = low + (high-low)/2;
+        int stuCnt = countStu(arr, mid);
+        if(stuCnt>m){
+            low = mid+1;
+        }
+        else{
+            high = mid-1;
             ans = mid;
-            e = mid - 1;
         }
-        else
-        {
-            s = mid + 1;
-        }
-        mid = s + (e-s)/2;
+
     }
+
     return ans;
+
+}
+
+
+//brute force logic --linear search
+//TIME COMPLEXITY = O((high-low+1)*N)
+//SPACE COMPLEXITY = O(1)
+
+int countStu(vector<int>& arr, int pages){
+
+    int stu=1;
+    int pagesStudent = 0;
+    for(int i=0; i<arr.size(); i++){
+        if(pagesStudent+arr[i] <= pages){
+            pagesStudent+=arr[i];
+        }
+        else{
+            stu++;
+            pagesStudent=arr[i];
+        }
+    }
+    return stu;
+}
+
+
+int findPages(vector<int>& arr, int n, int m) {
+
+    if(n<m) return -1;
+    
+    int low = *max_element(arr.begin(),arr.end());
+    int high = accumulate(arr.begin(),arr.end(),0);
+
+    for(int pages=low; pages<=high; pages++){
+
+        int cntStu = countStu(arr,pages);
+        if(cntStu == m){
+            return pages;
+        }
+    }
+
+    return -1;
+
 }
