@@ -1,88 +1,89 @@
-// Question Links:
-// - Book Allocation Problem: https://www.naukri.com/code360/problems/allocate-books_1090540
+// https://www.naukri.com/code360/problems/ayush-and-ninja-test_1097574
 
-//brute force logic --binary search
 //TIME COMPLEXITY = O(log(high-low+1)*N)
 //SPACE COMPLEXITY = O(1)
 
-int countStu(vector<int>& arr, int pages){
+#include <bits/stdc++.h>  
 
-    int stu=1;
-    int pagesStudent = 0;
-    for(int i=0; i<arr.size(); i++){
-        if(pagesStudent+arr[i] <= pages){
-            pagesStudent+=arr[i];
-        }
-        else{
-            stu++;
-            pagesStudent=arr[i];
-        }
-    }
-    return stu;
-}
+bool isPossibleAnswer(int n, int m, long long int mid, vector<int> time) {
 
+ 
 
-int findPages(vector<int>& arr, int n, int m) {
+  long long int studentCount = 1;
 
-    if(n<m) return -1;
-    
-    int low = *max_element(arr.begin(),arr.end());
-    int high = accumulate(arr.begin(),arr.end(),0);
-    int ans = -1;
-    while(low<=high){
-        int mid = low + (high-low)/2;
-        int stuCnt = countStu(arr, mid);
-        if(stuCnt>m){
-            low = mid+1;
-        }
-        else{
-            high = mid-1;
-            ans = mid;
-        }
+  long long int pageSum = 0;
+
+ 
+
+  for (int i = 0; i < m; i++) {
+
+    if (pageSum + time[i] <= mid) {
+
+      pageSum += time[i];
+
+    } else {
+
+ 
+
+      studentCount++;
+
+      if (studentCount > n || time[i] > mid) {
+
+        return false;
+
+      }
+
+      pageSum = time[i];
 
     }
 
-    return ans;
+  }
+
+  return true;
 
 }
 
+ 
 
-//brute force logic --linear search
-//TIME COMPLEXITY = O((high-low+1)*N)
-//SPACE COMPLEXITY = O(1)
+long long ayushGivesNinjatest(int n, int m, vector<int> time) {
 
-int countStu(vector<int>& arr, int pages){
+  long long s = 0;
 
-    int stu=1;
-    int pagesStudent = 0;
-    for(int i=0; i<arr.size(); i++){
-        if(pagesStudent+arr[i] <= pages){
-            pagesStudent+=arr[i];
-        }
-        else{
-            stu++;
-            pagesStudent=arr[i];
-        }
+  long long sum = 0;
+
+  for (int i = 0; i < m; i++) {
+
+    sum += time[i];
+
+  }
+
+  long long e = sum;
+
+  long long ans = -1;
+
+  long long int mid = s + (e - s) / 2;
+
+ 
+
+  while (s <= e) {
+
+    if (isPossibleAnswer(n, m, mid, time)) {
+
+      ans = mid;
+
+      e = mid - 1;
+
+    } else {
+
+      s = mid + 1;
+
     }
-    return stu;
-}
 
+    mid = s + (e - s) / 2;
 
-int findPages(vector<int>& arr, int n, int m) {
+  }
 
-    if(n<m) return -1;
-    
-    int low = *max_element(arr.begin(),arr.end());
-    int high = accumulate(arr.begin(),arr.end(),0);
-
-    for(int pages=low; pages<=high; pages++){
-
-        int cntStu = countStu(arr,pages);
-        if(cntStu == m){
-            return pages;
-        }
-    }
-
-    return -1;
+  return ans;
 
 }
+
