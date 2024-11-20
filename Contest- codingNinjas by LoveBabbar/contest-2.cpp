@@ -14,3 +14,9 @@ int classTest(int n, vector<int> &a, int k) {
     return ans;
 
 }
+
+#include <bits/stdc++.h> 
+int classTest(int n, vector<int> &a, int k) {
+    sort(a.begin(), a.end(), greater<int>());
+    return a[k-1];
+}
