@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/majority-element-ii/description/
 
-
+// optimal solution
 // TIME COMPLEXITY: O(n)             
 // SPACE COMPLEXITY: O(1)
 
