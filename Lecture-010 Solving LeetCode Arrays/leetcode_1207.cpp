@@ -2,6 +2,42 @@
 // link:https://leetcode.com/problems/unique-number-of-occurrences/description/
 
 
+// TIME COMPLEXITY - O(nlogn)
+// SPACE COMPLEXITY - O(N)
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+
+        vector<int>counts;
+        sort(arr.begin(),arr.end());
+        int cnt=1;
+
+        for(int i=0; i<arr.size(); i++){
+            
+            if(i+1<arr.size() && arr[i] == arr[i+1]){
+                cnt++;
+            }
+            else{
+
+                counts.push_back(cnt);
+                cnt=1;
+            }
+        }
+
+        sort(counts.begin(), counts.end());
+        for(int i=0; i<counts.size(); i++){
+            if(i+1<counts.size() && counts[i] == counts[i+1]) return false;
+        }
+
+        return true;
+        
+    }
+};
+
+
+
+// TIME COMPLEXITY - O(N^2)
+// SPACE COMPLEXITY - O(N)
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
