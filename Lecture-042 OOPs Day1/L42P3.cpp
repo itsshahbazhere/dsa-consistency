@@ -13,7 +13,7 @@ class Hero{
         cout<<"Default constructor called..."<<endl;;
     }
 
-    //parameterised constructor
+    // parameterised constructor
     Hero(int health, char level){
 
         this->health = health;
