@@ -1,5 +1,60 @@
 // https://leetcode.com/problems/sort-an-array/
 
+
+// T.C - O(NlogN)
+// S.C - O(N)
+
+class Solution {
+public:
+
+    void merge(vector<int>& nums, int start, int mid, int end){
+
+        vector<int>temp(end-start+1);
+
+        int first = start;
+        int second = mid+1;
+
+        int index = 0;
+        while(first<=mid && second<=end){
+            if(nums[first]<=nums[second]){
+                temp[index++] = nums[first++];
+            }
+            else{
+                temp[index++] = nums[second++];
+            }
+        }
+        while(first<=mid){
+            temp[index++] = nums[first++];
+        }
+
+        while(second<=end){
+            temp[index++] = nums[second++];
+        }
+
+        index = 0;
+        while(start<=end){
+            nums[start++] = temp[index++];
+        }
+    }
+
+    void mergeSort(vector<int>& nums, int start, int end){
+        if(start == end) return;
+
+        int mid = start+(end-start)/2;
+        mergeSort(nums,start,mid);
+        mergeSort(nums,mid+1,end);
+        
+        merge(nums, start, mid, end);
+
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        mergeSort(nums,0,nums.size()-1);
+
+        return nums;
+    }
+};
+
+
 class Solution {
 
 private:
