@@ -3,50 +3,129 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
-// approach 2
+// approach 3 (optimized solution)
 // T.C - O(N)
 // S.C - O(N)
 
 class Solution {
   public:
-    int celebrity(vector<vector<int> >& mat) {
-        // code here
-        int row = mat.size();
-        int col = mat[0].size();
-
+    vector<int> maxOfMins(vector<int>& arr) {
+        
+        int n = arr.size();
         stack<int>st;
-        for(int i=0; i<row; i++){
+        vector<int>ans(n,0);
+        
+        // find NSR & NSL;
+        
+        for(int i=0; i<n; i++){
+            while(!st.empty() && arr[st.top()]>arr[i]){
+                int index = st.top();
+                st.pop();
+                if(st.empty()){
+                    int range = i;
+                    ans[range-1] = max(ans[range-1], arr[index]);
+                }
+                else{
+                    int range = i-st.top()-1;
+                    ans[range-1] = max(ans[range-1], arr[index]);
+                }
+                
+            }
             st.push(i);
-        }
-
-        while(st.size()>1){
-            int index1 = st.top();
-            st.pop();
-            int index2 = st.top();
-            st.pop();
-            if(mat[index1][index2] == 0 && mat[index2][index1] == 1){
-                st.push(index1);
-            }
-            else if(mat[index1][index2] == 1 && mat[index2][index1] == 0){
-                st.push(index2);
-            }
         }
         
 
-        if(st.empty()) return -1;
+        while(!st.empty()){
+            int index  = st.top();
+            st.pop();
+            if(st.empty()){
+                int range = n;
+                ans[range-1] = max(ans[range-1], arr[index]);
+            }
+            else{
+                int range = n-st.top()-1;
+                ans[range-1] = max(ans[range-1], arr[index]);
+            }
+        }
+        
+        for(int i=n-2; i>=0; i--){
+            ans[i] = max(ans[i], ans[i+1]);
+        }
+        
+        return ans;
+        
+    }
+};
 
-        for(int i=0; i<row; i++){
-            if(mat[i][st.top()] != 1 || mat[st.top()][i] == 1){
-                if(st.top() != i){
-                    return -1;
+
+
+// approach 2 (TLE)
+// T.C - O(N^2)
+// S.C - O(N)
+
+class Solution {
+  public:
+    vector<int> maxOfMins(vector<int>& arr) {
+        
+        int n = arr.size();
+        stack<int>st;
+        vector<int>ans(n,0);
+        
+        vector<int>v(n,0);
+        
+        // find NSR & NSL;
+        
+        for(int i=0; i<n; i++){
+            while(!st.empty() && arr[st.top()]>arr[i]){
+                int index = st.top();
+                st.pop();
+                if(st.empty()){
+                    v[index] = i;
                 }
+                else{
+                    v[index] = i-st.top()-1;
+                }
+                
+            }
+            st.push(i);
+        }
+        
+        // for(int i=0; i<n; i++){
+        //     cout<<v[i]<<" ";
+        // }
+
+        // cout<<endl;
+
+        while(!st.empty()){
+            int index  = st.top();
+            st.pop();
+            if(st.empty()){
+                v[index] = n;
+                }
+            else{
+                v[index] = n-st.top()-1;
             }
         }
 
-        return st.top();
+
+        // for(int i=0; i<n; i++){
+        //     cout<<v[i]<<" ";
+        // }
+        
+        
+        // assign max in ans
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<v[i]; j++){
+                ans[j] = max(ans[j], arr[i]);
+            }
+        }
+        
+        return ans;
+        
     }
 };
+
 
 
 
@@ -54,7 +133,6 @@ class Solution {
 // approach - 1 
 // T.C - O(N^2)
 // S.C - O(1)
-
 
 class Solution {
   public:
