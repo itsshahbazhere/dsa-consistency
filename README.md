@@ -1,6 +1,6 @@
 # Daily Learning and Problem Solving
 
-This repository documents my journey of learning **Data Structures and Algorithms (DSA)** by solving coding challenges on platforms like **LeetCode** and **Coding Ninjas**.
+This repository documents my journey of learning **Data Structures and Algorithms (DSA)** by solving coding challenges on platforms like **LeetCode**, **GeeksForGeeks** and **Coding Ninjas**.
 
 ## Key Focus
 - Consistency in daily practice
