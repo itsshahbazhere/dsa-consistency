@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 
@@ -34,6 +35,25 @@ void postOrder(Node *root){
     cout<<root->data<<" ";
 }
 
+//level - order traversal
+void levelOrder(Node *root){
+
+    queue<Node*>q;
+    q.push(root);
+
+    while(!q.empty()){
+        cout<<q.front()->data<<" ";
+        if(q.front()->left){
+            q.push(q.front()->left); 
+        }
+        if(q.front()->right){
+            q.push(q.front()->right);
+        }
+        q.pop();
+    }
+}
+
+
 Node* binaryTree(){
     int x;
     cin>>x;
@@ -50,6 +70,8 @@ Node* binaryTree(){
 
 }
 
+
+
 int main(){
 
     Node *root;
@@ -64,7 +86,9 @@ int main(){
 
     cout<<endl<<"Post-Order: ";
     postOrder(root);
-    cout<<endl;
+
+    cout<<endl<<"Level-Order: ";
+    levelOrder(root);
 
 
 
@@ -116,6 +140,7 @@ Enter the right child of 10: -1
 Pre-Order: 1 2 3 4 5 6 7 8 9 10 
 In-Order: 4 3 5 2 6 1 7 9 8 10 
 Post-Order: 4 5 3 6 2 9 10 8 7 1 
+Level-Order: 1 2 3 4 5 6 7 8 9 10 
 
 
 
